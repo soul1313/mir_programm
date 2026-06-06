@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WOW-страница — Бесплатное обучение 💖</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;900&family=Playfair+Display:wght@700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+      background: radial-gradient(circle at 30% 30%, #ff00cc, transparent 50%),
+                  radial-gradient(circle at 70% 70%, #3333ff, transparent 50%),
+                  linear-gradient(135deg, #1e0033, #000011);
+      color: white;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Переливающиеся линии */
+    .gradient-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255,255,255,0.2) 0%, transparent 60%);
+      mix-blend-mode: overlay;
+      animation: shine 8s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Частицы */
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .stars span {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 5s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    /* Центральный блок */
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 850px;
+      margin: 2rem auto;
+      padding: 3rem 3.5rem;
+      border-radius: 2rem;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 30px rgba(255,255,255,0.3),
+                  inset 0 0 40px rgba(255,255,255,0.05);
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      text-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff;
+      margin-bottom: 1.2rem;
+      animation: glow 3s ease-in-out infinite alternate;
+      line-height: 1.2;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff; }
+      to   { text-shadow: 0 0 40px #ff99ff, 0 0 70px #66ffff; }
+    }
+
+    p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.6;
+    }
+
+    /* Стили для новых блоков */
+    .highlight {
+      background: linear-gradient(120deg, rgba(255,0,204,0.25), rgba(51,51,255,0.25));
+      border-radius: 16px;
+      padding: 1.8rem 1.5rem;
+      margin: 2rem 0;
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 0 20px rgba(255,0,255,0.3);
+      backdrop-filter: blur(8px);
+    }
+
+    .mission {
+      font-size: 1.4rem;
+      font-weight: 600;
+      text-shadow: 0 0 10px #ff66ff;
+    }
+
+    .icon-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .icon-list li {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 0.6rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      box-shadow: 0 0 12px rgba(255,255,255,0.25);
+      transition: transform 0.2s;
+    }
+    .icon-list li:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255,0,255,0.5);
+    }
+
+    .stats-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    .stat-item {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 1rem;
+      padding: 1.2rem 1.8rem;
+      min-width: 150px;
+      box-shadow: 0 0 25px rgba(0, 200, 255, 0.3);
+    }
+    .stat-number {
+      font-size: 2.8rem;
+      font-weight: 900;
+      background: linear-gradient(45deg, #ff99ff, #66ffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      font-size: 1rem;
+      opacity: 0.85;
+      letter-spacing: 0.05em;
+    }
+
+    .trust-quote {
+      font-style: italic;
+      font-size: 1.2rem;
+      border-left: 4px solid #ff66ff;
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      text-align: left;
+      color: #f0e6ff;
+      text-shadow: 0 0 12px #cc88ff;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      background: linear-gradient(45deg, #ff00cc, #3333ff);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 0 20px rgba(255,0,255,0.7), 0 0 40px rgba(0,200,255,0.7);
+      transition: all .3s ease;
+      margin-top: 1.8rem;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      transform: scale(1.1) rotate(-1deg);
+      box-shadow: 0 0 40px rgba(255,0,255,1), 0 0 70px rgba(0,200,255,1);
+    }
+
+    /* Адаптивность */
+    @media (max-width: 600px) {
+      .container {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+      }
+      h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="gradient-overlay"></div>
+  <div class="stars" id="stars"></div>
+
+  <div class="container">
+    <h1>Добро пожаловать в мир бесплатного программирования — SOUL💗</h1>
+    <p>Мы создали этот проект, чтобы каждый мог освоить востребованные языки программирования <strong>абсолютно бесплатно</strong>.</p>
+
+    <!-- Блок миссии -->
+    <div class="highlight">
+      <p class="mission">✨ Наша миссия — сделать IT-образование доступным для всех, независимо от достатка и места жительства.</p>
+    </div>
+
+    <!-- Список языков -->
+    <p style="font-size: 1.4rem; margin-top: 1.5rem;">У нас ты найдёшь уроки по:</p>
+    <ul class="icon-list">
+      <li>🟣 HTML/CSS</li>
+      <li>🟡 JavaScript</li>
+      <li>🐍 Python</li>
+      <li>☕ Java</li>
+      <li>⚛️ React</li>
+      <li>🧠 SQL</li>
+      <li>🎮 C#</li>
+      <li>🔷 C++</li>
+    </ul>
+
+    <!-- Блок статистики и доверия -->
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">12 500+</div>
+        <div class="stat-label">учеников выбрали нас</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">600+</div>
+        <div class="stat-label">видеоуроков</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">тестовых проектов</div>
+      </div>
+    </div>
+
+    <div class="highlight trust-quote">
+      💬 «Раньше я думала, что программирование — это сложно и дорого. Благодаря SOUL я уже через месяц написала свой первый сайт. Огромное спасибо за бесплатные материалы!»<br>
+      <span style="font-weight: bold; display: block; margin-top: 0.8rem;">— Алина, 19 лет, студентка</span>
+    </div>
+
+    <p style="font-size: 1.3rem; font-weight: 500;">
+      🔥 Все курсы, форумы и практические задания открыты для тебя прямо сейчас. Никаких скрытых платежей, пробных периодов и ограничений.
+    </p>
+    <p style="font-size: 1.1rem; opacity: 0.8;">
+      Каждый день мы добавляем новые уроки и разборы. Присоединяйся к сообществу единомышленников и начни свой путь в IT уже сегодня.
+    </p>
+
+    <a href="index.html" class="btn">Вернуться на главную</a>
+    <a href="#" class="btn" style="background: linear-gradient(45deg, #33ccff, #ff33cc); margin-left: 1rem;">Начать учиться бесплатно ✨</a>
+  </div>
+
+  <script>
+    // Создаём множество звёзд
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+      let star = document.createElement('span');
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDuration = (2 + Math.random() * 4) + 's';
+      starsContainer.appendChild(star);
+    }
+  </script>
+</body>
+</html>

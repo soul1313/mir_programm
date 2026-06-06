@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HTML -- Язык разметки  </title>
+  <meta name="description" content="Визуальная и образовательная страница — всё, что нужно знать про HTML, советы, примеры и видеоуроки.">
+  <style>
+    /* Reset & base */
+    :root{
+      --bg1: linear-gradient(135deg,#0f172a 0%,#001219 40%,#011627 100%);
+      --glass: rgba(255,255,255,0.06);
+      --accent: linear-gradient(90deg,#6ee7b7,#60a5fa,#c084fc);
+      --glass-border: rgba(255,255,255,0.08);
+      --glass-strong: rgba(255,255,255,0.09);
+      --mono: 'Segoe UI Mono', Consolas, 'Courier New', monospace;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(99,102,241,0.12), transparent),
+                  radial-gradient(900px 400px at 90% 90%, rgba(34,197,94,0.06), transparent),
+                  var(--bg1);
+      -webkit-font-smoothing:antialiased;color:#e6eef8;line-height:1.45;
+      padding:48px;
+    }
+    .wrap{max-width:1100px;margin:0 auto}
+
+    /* Header hero */
+    header.hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-bottom:28px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+          border:1px solid var(--glass-border);backdrop-filter: blur(8px);padding:28px;border-radius:20px;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    h1{font-size:44px;margin:0 0 8px 0;letter-spacing:-0.02em}
+    h1 .accent{background:var(--accent);-webkit-background-clip:text;background-clip:text;color:transparent}
+    p.lead{margin:0;color:#cfe8ff}
+
+    /* Neon globe */
+    .globe{height:420px;border-radius:16px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .globe canvas{width:100%;height:100%;display:block}
+    .glow-ring{position:absolute;inset:0;border-radius:16px;box-shadow:0 0 160px rgba(96,165,250,0.06), inset 0 0 40px rgba(108,122,255,0.06)}
+
+    /* Sections */
+    section{margin:18px 0}
+    .grid-2{display:grid;grid-template-columns:1fr 360px;gap:20px}
+
+    /* Fancy list */
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,#0ea5e9, #7c3aed);font-weight:600;font-size:13px}
+
+    /* Reference boxes */
+    pre{background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(255,255,255,0.02));padding:14px;border-radius:12px;overflow:auto;border:1px solid var(--glass-strong);font-family:var(--mono);font-size:13px}
+
+    /* Tag cloud */
+    .tag-cloud{display:flex;flex-wrap:wrap;gap:10px}
+    .tag{padding:8px 12px;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+
+    /* Video card */
+    .video{display:block;border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,0.25)}
+
+    /* Footer */
+    footer{display:flex;justify-content:space-between;align-items:center;padding-top:18px;color:#99b3d6}
+
+    /* Floating helpers */
+    .floating{position:fixed;right:28px;bottom:28px;background:linear-gradient(90deg,#10b981,#3b82f6);color:#002233;padding:12px 14px;border-radius:999px;font-weight:700;box-shadow:0 12px 30px rgba(16,185,129,0.12)}
+
+    /* Responsive */
+    @media (max-width:980px){header.hero{grid-template-columns:1fr;}
+      .grid-2{grid-template-columns:1fr}
+      .globe{height:260px}}
+
+    /* micro-animations */
+    .sparkle{position:relative}
+    .sparkle::after{content:'';position:absolute;right:-6px;top:-6px;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle,#fff 0%, transparent 40%);filter:blur(6px);opacity:.9;transform:translateY(-6px);animation:twinkle 3s linear infinite}
+    @keyframes twinkle{0%,100%{opacity:0.4;transform:translateY(-6px) scale(0.8)}50%{opacity:1;transform:translateY(0) scale(1.15)}}
+
+    /* pretty code highlight */
+    code.k{color:#7ee787;font-weight:700}
+    code.s{color:#9ad0ff}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,#111827 0%, rgba(255,255,255,0.02) 100%);border:1px solid rgba(255,255,255,0.04)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="card">
+        <h1><span class="accent">HTML</span> — Язык разметки. <span class="accent">Используется как фундамент, для создания любого веб сайта</span></h1>
+        <p class="lead">Здесь — концентрат знаний про HTML, практические советы, примеры, и видеоуроки. Интерактивно, красиво и понятно.</p>
+        <div style="margin-top:18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <span class="badge">HTML • Референс</span>
+          <span class="pill">Адаптивный дизайн</span>
+          <span class="pill">Accessibility</span>
+        </div>
+
+        <section style="margin-top:18px">
+          <h3 style="margin:0 0 10px 0">Что внутри</h3>
+          <ul>
+            <li>Краткая история и концепции</li>
+            <li>Структура страницы — <code>&lt;!doctype&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code></li>
+            <li>Семантика: почему &lt;header&gt;, &lt;main&gt;, &lt;article&gt; важны</li>
+            <li>Формы, таблицы, мультимедиа, API браузера</li>
+            <li>Доступность, SEO, производительность</li>
+          </ul>
+        </section>
+
+      </div>
+
+      <aside class="card globe" aria-hidden="true">
+        <!-- decorative animated globe (canvas JS below) -->
+        <canvas id="glCanvas"></canvas>
+        <div class="glow-ring"></div>
+      </aside>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Кратко: что такое HTML</h2>
+        <p>HTML (HyperText Markup Language) — язык разметки для создания структуры веб-страниц. Он задаёт <em>семантические</em> блоки (заголовки, абзацы, списки, таблицы, формы и т.д.), которые браузер отображает, а поисковые системы и вспомогательные технологии (например, скрин-ридеры) используют для понимания содержимого.</p>
+
+        <h3>Основные принципы</h3>
+        <ol>
+          <li><strong>Семантика</strong> — используйте теги по назначению: &lt;nav&gt; для навигации, &lt;footer&gt; — для футера, &lt;section&gt; для разделов.</li>
+          <li><strong>Отделение структуры от представления</strong> — HTML для структуры, CSS для визуала, JS для поведения.</li>
+          <li><strong>Доступность</strong> — добавляйте alt, role, aria-атрибуты и правильно ставьте заголовки.</li>
+        </ol>
+      </section>
+
+      <section class="grid-2">
+        <div class="card">
+          <h2>Быстрый справочник по тегам</h2>
+          <div class="tag-cloud" style="margin-bottom:12px">
+            <span class="tag">&lt;div&gt;</span><span class="tag">&lt;span&gt;</span><span class="tag">&lt;a&gt;</span><span class="tag">&lt;img&gt;</span>
+            <span class="tag">&lt;header&gt;</span><span class="tag">&lt;main&gt;</span><span class="tag">&lt;article&gt;</span><span class="tag">&lt;section&gt;</span>
+            <span class="tag">&lt;nav&gt;</span><span class="tag">&lt;footer&gt;</span><span class="tag">&lt;form&gt;</span><span class="tag">&lt;input&gt;</span>
+            <span class="tag">&lt;button&gt;</span><span class="tag">&lt;ul&gt;&lt;li&gt;</span><span class="tag">&lt;table&gt;</span><span class="tag">&lt;svg&gt;</span>
+          </div>
+
+          <h4>Пример семантической обвязки</h4>
+          <pre>&lt;!doctype html&gt;
+&lt;html lang="ru"&gt;
+  &lt;head&gt;…&lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;&lt;nav&gt;…&lt;/nav&gt;&lt;/header&gt;
+    &lt;main&gt;
+      &lt;article&gt;
+        &lt;h1&gt;Заголовок&lt;/h1&gt;
+        &lt;p&gt;Контент&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;&lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+        </div>
+
+        <aside class="card">
+          <h3>Частые атрибуты</h3>
+          <ul>
+            <li><code>id</code>, <code>class</code> — для стилизации/скриптов</li>
+            <li><code>alt</code> — альтернативный текст для изображений</li>
+            <li><code>aria-*</code> — для доступности</li>
+            <li><code>role</code> — определяет роль элемента</li>
+          </ul>
+
+          <h4>Формы</h4>
+          <pre>&lt;form action="/" method="post"&gt;
+  &lt;label&gt;Email&lt;input type="email" name="email" required&gt;&lt;/label&gt;
+  &lt;button type="submit"&gt;Отправить&lt;/button&gt;
+&lt;/form&gt;</pre>
+        </aside>
+      </section>
+
+      <section class="card">
+        <h2>Полезные практики и советы</h2>
+        <ul>
+          <li><strong>Всегда указывайте &lt;!doctype&gt;</strong> — иначе режим отображения может сломаться.</li>
+          <li><strong>Используйте валидатор</strong> — проверяйте HTML на validator.w3.org.</li>
+          <li><strong>Доступность</strong> — чёткая структура заголовков, контраст текста, клавиатурная навигация.</li>
+          <li><strong>SEO</strong> — мета-теги, семантическая разметка, правильные заголовки.</li>
+          <li><strong>Производительность</strong> — оптимизируйте изображения, ленивая загрузка (<code>loading="lazy"</code>), минимизируйте DOM.</li>
+          <li><strong>Безопасность</strong> — внимательно с <code>target="_blank" rel="noopener noreferrer"</code>.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Встроенные возможности браузера</h2>
+        <p>Современные браузеры дают HTML API: <code>picture</code> для отклика изображений, <code>video</code>/<code>audio</code> для мультимедиа, <code>dialog</code> для модальных окон, геолокация, localStorage, service workers (вместе с HTTPS) и многое другое.</p>
+
+        <h3>Пример — прогрессивное изображение</h3>
+        <pre>&lt;picture&gt;
+  &lt;source srcset="image.webp" type="image/webp"&gt;
+  &lt;img src="image.jpg" alt="Описание" loading="lazy"&gt;
+&lt;/picture&gt;</pre>
+      </section>
+
+      <section class="card">
+        <h2 id="accessibility">Доступность (Accessibility)</h2>
+        <p>Доступность — один из важнейших критериев. Коротко:</p>
+        <ul>
+          <li>Используйте семантические теги.</li>
+          <li>Добавляйте <code>alt</code> к изображениям, <code>label</code> к элементам форм.</li>
+          <li>Проверяйте фокусную навигацию (только клавиатура).</li>
+          <li>ARIA — полезно, но не заменяет семантику.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>SEO & Best practices</h2>
+        <ul>
+          <li>Уникальные иеррархические заголовки (H1 → H2 → H3).</li>
+          <li>Метаданные: <code>&lt;meta name="description" content="..."&gt;</code>, Open Graph, Twitter cards.</li>
+          <li>Мобильная оптимизация и скорость — критично для ранжирования.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Чек-лист перед релизом</h2>
+        <ol>
+          <li>Пройти HTML-валидатор</li>
+          <li>Проверить на мобильных устройствах</li>
+          <li>Проверить доступность (axe, lighthouse)</li>
+          <li>Оптимизировать изображения и шрифты</li>
+          <li>Настроить мета-теги и sitemap</li>
+        </ol>
+      </section>
+
+      <section class="card">
+        <h2>Видеоуроки — пометки</h2>
+        <p>(вот видео ролики по которым вы сможете обучиться HTML)</p>
+        <p>В данном плейлисте автор, пошагово обьясняет как работает язык разметки html</p>
+        <p>Посмотрев этот плейлист вы сможете выучить html и понять принцып его работы</p>
+        <div style="display:grid;grid-template-columns:1fr;gap:12px">
+          <a class="video" href="https://youtube.com/playlist?list=PLDyJYA6aTY1nlkG0gBj96XDmDSC4Fy1TO&feature=shared" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.youtube.com/vi/_R5a-Kc0pRc/maxresdefault.jpg" alt="Видео: Учим HTML" style="width:100%;display:block">
+            <div style="padding:12px">
+              <strong>Уроки HTML — стартовый курс</strong>
+              <div style="color:#99b3d6;margin-top:6px">Ссылка: https://youtu.be/_R5a-Kc0pRc?si=VeZh01_QZNPAikW7</div>
+            </div>
+          </a>
+
+          <div style="padding:12px;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+            <strong>Рекомендованные ресурсы для обучения:</strong>
+            <ul>
+              <li>MDN Web Docs — статьи и справочники (search «HTML MDN»)</li>
+              <li>W3C — спецификации</li>
+              <li>Практика: CodePen, JSFiddle, Replit</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Мини-галерея примеров</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+          <div style="padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+            <h4>Кнопка</h4>
+            <pre>&lt;button class="btn" aria-pressed="false"&gt;Нажми&lt;/button&gt;</pre>
+          </div>
+          <div style="padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+            <h4>Модальное</h4>
+            <pre>&lt;dialog&gt;Привет!&lt;/dialog&gt;</pre>
+          </div>
+          <div style="padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+            <h4>Таблица</h4>
+            <pre>&lt;table&gt;&lt;thead&gt;...&lt;/thead&gt;&lt;tbody&gt;...&lt;/tbody&gt;&lt;/table&gt;</pre>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  <footer class="card">
+<a href="CSS.html" target="_blank" class="css-button">CSS</a>
+<a href="index.html" target="_blank" class="css-button">Вернутся назад</a>
+<div style="font-family:var(--mono);font-size:13px">😵путеводитель по сайту😵</div>
+</footer>
+
+  </div>
+
+  <a class="floating" href="#accessibility">НАВИГАТОР</a>
+
+  <script>
+    // декоративная анимация — шар/глобус
+    const canvas = document.getElementById('glCanvas');
+    const ctx = canvas.getContext('2d');
+    function resize(){canvas.width = canvas.clientWidth; canvas.height = canvas.clientHeight;}
+    window.addEventListener('resize',resize); resize();
+
+    let particles = [];
+    for(let i=0;i<120;i++){
+      particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+0.5, vx:(Math.random()-0.5)*0.3, vy:(Math.random()-0.5)*0.3});
+    }
+    function loop(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      // gradient background blob
+      let g = ctx.createRadialGradient(canvas.width*0.2, canvas.height*0.22, 10, canvas.width*0.2, canvas.height*0.22, canvas.width*0.9);
+      g.addColorStop(0,'rgba(99,102,241,0.12)'); g.addColorStop(1,'rgba(2,6,23,0)');
+      ctx.fillStyle = g; ctx.fillRect(0,0,canvas.width,canvas.height);
+      // particles
+      for(let p of particles){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0)p.x=canvas.width; if(p.x>canvas.width)p.x=0; if(p.y<0)p.y=canvas.height; if(p.y>canvas.height)p.y=0;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = 'rgba(192,232,255,0.08)'; ctx.fill();
+      }
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Learn JavaScript — Интерактивный путеводитель</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#7c5cff; --muted:#9aa4b2; --glass: rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; margin:0; background:linear-gradient(180deg,#071025 0%, #071530 50%, #0b1530 100%); color:#e6eef6;}
+    header{display:flex;align-items:center;gap:16px;padding:28px 32px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo .mark{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#3ad0ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:#051024}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
+    .container{display:grid;grid-template-columns:300px 1fr;gap:20px;padding:0 32px 48px}
+    nav{padding:18px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:14px;height:calc(100vh - 140px);position:sticky;top:84px;overflow:auto}
+    .nav-item{padding:12px;border-radius:8px;display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:6px}
+    .nav-item.active{background:linear-gradient(90deg,rgba(124,92,255,0.18),rgba(58,208,255,0.06));box-shadow:0 6px 18px rgba(10,10,25,0.6)}
+    main{padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px;min-height:70vh}
+    .lesson-title{display:flex;align-items:center;justify-content:space-between}
+    .card{background:var(--card);border-radius:12px;padding:14px;margin-top:14px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    .example{display:grid;grid-template-columns:1fr 360px;gap:12px}
+    textarea.code{width:100%;height:260px;background:linear-gradient(180deg,#051024,#07162b);border:none;color:#e6eef6;padding:12px;border-radius:10px;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace;font-size:13px;resize:vertical}
+    .controls{display:flex;gap:8px;align-items:center;margin-top:8px}
+    button.btn{padding:8px 12px;border-radius:8px;border:none;background:var(--accent);color:#051024;font-weight:700;cursor:pointer}
+    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .console{height:140px;background:#020617;border-radius:8px;padding:10px;overflow:auto;font-family:ui-monospace,monospace;font-size:13px;color:#d6f8ff}
+    .hint{color:var(--muted);font-size:13px}
+    .progress{display:flex;gap:8px;align-items:center;margin-top:8px}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.06)}
+    .dot.done{background:linear-gradient(90deg,var(--accent),#3ad0ff)}
+    footer{padding:18px 32px;color:var(--muted);font-size:13px}
+    @media(max-width:900px){.container{grid-template-columns:1fr;}.example{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="mark">JS</div>
+      <div>
+        <h1>Learn JavaScript — с нуля до «понимаю»</h1>
+        <p class="lead">Интерактивная страница-путеводитель: теория, примеры и сразу — практика.</p>
+      </div>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+      <button class="ghost" id="downloadBtn">❤️‍🩹lostsoul❤️‍🩹</button>
+      <button class="ghost" id="resetProgress">твой выбор</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <nav id="toc"></nav>
+    <main id="content"></main>
+  </div>
+
+  <footer>
+    <strong>Как пользоваться:</strong> выбирай урок в меню слева → читай краткую теорию → изменяй код в редакторе → нажми <em>Run</em>. Если завис — смотри подсказки и ответы. Удачи! 🚀
+  </footer>
+
+<script>
+const LESSONS = [
+  { id:'intro', title:'Введение: что такое JavaScript?', text:'JavaScript — язык программирования, который делает веб-страницы интерактивными.', code:"console.log('Привет, JavaScript!');", answer:'Выведет текст в консоль.' },
+  { id:'vars', title:'Переменные и типы', text:'Переменная — это контейнер для значения. Используй let/const.', code:"let name='Иван'; const year=2025; console.log(name, year);", answer:'Выведет Иван 2025' },
+  { id:'info', title:'Информация: основные конструкции JS', text:`Начинающему программисту нужно знать базовые конструкции JavaScript:
+
+<ul>
+<li><code>let</code>, <code>const</code>, <code>var</code> — объявление переменных</li>
+<li><code>if / else</code> — условные конструкции</li>
+<li><code>switch</code> — множественный выбор</li>
+<li><code>for</code>, <code>while</code>, <code>do...while</code> — циклы</li>
+<li><code>function</code> — объявление функций</li>
+<li><code>=, ==, ===, !=, !==</code> — операторы сравнения</li>
+<li><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code> — арифметические операторы</li>
+<li><code>&&</code>, <code>||</code>, <code>!</code> — логические операторы</li>
+<li><code>return</code> — возврат значения из функции</li>
+<li><code>try...catch</code> — обработка ошибок</li>
+<li><code>Array</code>, <code>Object</code> — базовые структуры данных</li>
+<li><code>for...of</code>, <code>for...in</code> — перебор коллекций</li>
+<li><code>console.log()</code> — вывод информации</li>
+</ul>`, code:"// Попробуй написать функцию и вызвать её ниже\nfunction sum(a, b) { return a + b; }\nconsole.log(sum(2,3));", answer:'Результат: 5' },
+  { id:'course', title:'Информация: бесплатный курс', text:`По этому бесплатному видеокурсу на YouTube вы сможете выучить JavaScript с нуля.<br><br>
+  <iframe width="100%" height="315" src="https://www.youtube.com/embed/videoseries?list=PLDyJYA6aTY1kJIwbYHzGOuvSMNTfqksmk"
+  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`, code:null }
+];
+
+const toc=document.getElementById('toc');
+const content=document.getElementById('content');
+
+LESSONS.forEach((lesson,idx)=>{
+  const it=document.createElement('div');
+  it.className='nav-item'+(idx===0?' active':'');
+  it.innerHTML=`<div style="font-weight:700">${lesson.title}</div>`;
+  it.addEventListener('click',()=>{
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    it.classList.add('active');
+    renderLesson(lesson);
+  });
+  toc.appendChild(it);
+});
+
+function renderLesson(lesson){
+  content.innerHTML=`<div class='lesson-title'><h2>${lesson.title}</h2></div><div class='card'><p>${lesson.text}</p>${lesson.code?`<textarea class='code' id='code-area'>${lesson.code}</textarea><div class='controls'><button class='btn' id='runBtn'>Run ▶</button></div><div class='console' id='console'></div>`:''}</div>`;
+  if(lesson.code){
+    document.getElementById('runBtn').addEventListener('click',()=>{
+      const consoleOut=document.getElementById('console');
+      consoleOut.innerHTML='';
+      try{
+        const userCode=document.getElementById('code-area').value;
+        const log=(...a)=>{consoleOut.innerHTML+=a.join(' ')+'<br>';};
+        new Function('console',userCode)({log});
+      }catch(e){consoleOut.innerHTML='Ошибка: '+e.message;}
+    });
+  }
+}
+
+renderLesson(LESSONS[0]);
+</script>
+</body>
+</html>
